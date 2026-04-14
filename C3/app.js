@@ -66,9 +66,9 @@
       btn.style.background = 'transparent';
       btn.textContent = name;
       btn.addEventListener('click', function(){
-        // buscar el item correspondiente y mostrar detalle
+        // buscar el item correspondiente y abrir modal para comprar
         const item = Array.from(document.querySelectorAll('.beneficio')).find(i => (i.dataset.name||i.querySelector('h3')?.textContent||'').toLowerCase() === name.toLowerCase());
-        if(item) showItemDetail(item);
+        if(item) openModalForItem(item);
         suggestionsBox.style.display = 'none';
       });
       suggestionsBox.appendChild(btn);
@@ -248,36 +248,45 @@
     closeModal();
   });
 
-  /* Mostrar detalle de item en la sección #item-detail */
-  const itemDetailSection = document.getElementById('item-detail');
-  function showItemDetail(item){
-    if(!itemDetailSection) return;
+  /* Hover tooltip for items: shows a small card on pointer hover */
+  const tooltip = document.createElement('div');
+  tooltip.className = 'item-tooltip';
+  tooltip.innerHTML = '<div class="tt-name"></div><div class="tt-desc"></div><div class="tt-price"></div>';
+  document.body.appendChild(tooltip);
+
+  function showTooltipForItem(item){
     const name = item.dataset.name || item.querySelector('h3')?.textContent || 'Item';
     const price = Number(item.dataset.price || (item.querySelector('.precio')?.textContent||'0').replace(/[^0-9]/g,'')) || 0;
-    const img = item.querySelector('img')?.getAttribute('src') || 'favicon.ico';
-    const desc = (item.querySelector('.descripcion')?.textContent) || item.querySelector('p.precio')?.nextElementSibling?.textContent || 'Sin descripción';
-    itemDetailSection.style.display = '';
-    itemDetailSection.querySelector('.detail-name').textContent = name;
-    itemDetailSection.querySelector('.detail-price').textContent = String(price);
-    itemDetailSection.querySelector('.detail-img').setAttribute('src', img);
-    itemDetailSection.querySelector('.detail-desc').textContent = desc;
-    // wire detail buttons
-    itemDetailSection.querySelector('.detail-add-cart').onclick = function(){ addToCartObject({ name, price, qty:1, image: img }); alert('Añadido al carrito: '+name); };
-    itemDetailSection.querySelector('.detail-buy-now').onclick = function(){ openModalForItem(item); };
-    itemDetailSection.scrollIntoView({ behavior:'smooth', block:'center' });
+    const desc = item.querySelector('.descripcion')?.textContent || '';
+    tooltip.querySelector('.tt-name').textContent = name;
+    tooltip.querySelector('.tt-desc').textContent = desc;
+    tooltip.querySelector('.tt-price').textContent = 'Precio: $' + price;
+    tooltip.classList.add('visible');
   }
 
-  // detalle desde botón comprar (hacer que también rellene detalle antes de abrir modal)
-  document.addEventListener('click', function(e){
-    const btn = e.target.closest('.btn-comprar');
-    if(!btn) return;
-    if(btn.closest('.modal')) return; // modal internal buttons handled above
-    const item = btn.closest('.beneficio');
-    if(!item) return;
-    // si es el botón Comprar, primero mostrar detalle then open modal
-    showItemDetail(item);
-    // openModalForItem(item); // dejar que la apertura del modal ya se haga por la delegación existente
-  });
+  function positionTooltip(e){
+    const pad = 12;
+    const w = tooltip.offsetWidth;
+    const h = tooltip.offsetHeight;
+    let left = e.pageX + pad;
+    let top = e.pageY + pad;
+    if(left + w > document.documentElement.scrollWidth) left = e.pageX - w - pad;
+    if(top + h > document.documentElement.scrollHeight) top = e.pageY - h - pad;
+    tooltip.style.left = left + 'px';
+    tooltip.style.top = top + 'px';
+  }
+
+  function hideTooltip(){ tooltip.classList.remove('visible'); }
+
+  function attachHoverCards(){
+    document.querySelectorAll('.beneficio').forEach(item=>{
+      if(item.__hoverBound) return;
+      item.__hoverBound = true;
+      item.addEventListener('pointerenter', function(e){ showTooltipForItem(item); positionTooltip(e); });
+      item.addEventListener('pointermove', function(e){ positionTooltip(e); });
+      item.addEventListener('pointerleave', hideTooltip);
+    });
+  }
 
   // cerrar con Escape
   document.addEventListener('keydown', function(e){ if(e.key === 'Escape'){ closeModal(); } });
@@ -324,6 +333,8 @@
         </div>`;
       auctionsContainer.appendChild(card);
     });
+    // ensure hover handlers are attached for new auction cards
+    attachHoverCards();
   }
 
   function formatRemaining(endAt){
@@ -412,5 +423,7 @@
   // init
   loadAuctions();
   renderAuctions();
+  // attach hover tooltip handlers for existing items
+  attachHoverCards();
 
 })();

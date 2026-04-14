@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>Items Invaluables - Minecraft</title>
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/footer.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="footer.css">
 </head>
 <body class="minecraft">
     <header>
@@ -88,22 +88,7 @@
             </div>
         </section>
 
-        <!-- Sección de detalle del item -->
-        <section id="item-detail" aria-labelledby="item-detail-title" style="display:none;">
-            <div class="container">
-                <h2 id="item-detail-title" class="catalog-title">Detalle del Item</h2>
-                <div class="detail-card beneficio">
-                    <h3 class="detail-name">Nombre</h3>
-                    <img class="detail-img" src="favicon.ico" width="128" height="128" alt="Item">
-                    <p class="detail-desc">Descripción</p>
-                    <p>Precio: $<span class="detail-price">0</span></p>
-                    <div class="detail-actions">
-                        <button class="btn-comprar detail-add-cart">Añadir al carrito</button>
-                        <button class="btn-comprar detail-buy-now">Comprar ahora</button>
-                    </div>
-                </div>
-            </div>
-        </section>
+        <!-- Item detail removed: hover tooltip will show item info instead -->
 
         <!-- Modal de compra (inicialmente oculto) -->
         <div id="modal" class="modal" role="dialog" aria-modal="true" aria-hidden="true">
@@ -221,12 +206,11 @@
                 <p>Teléfono: <a href="tel:+34123456789">+34 123 456 789</a></p>
                 <p>Email: <a href="mailto:info@empresa.com">info@empresa.com</a></p>
             </address>
-            <p>&copy; 2026 Empresa S.A. Todos los derechos reservados.</p>
+            <p>&copy; 2026-5 Empresa S.A. Todos los derechos reservados.</p>
         </div>
     </footer>
 
-    <script src="js/footer.js"></script>
-    <script src="js/app.js"></script>
+    <script src="app.js"></script>
 </body>
 
 </html>
