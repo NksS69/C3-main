@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Items Invaluables - Minecraft</title>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/footer.css">
+</head>
+<body class="minecraft">
+    <header>
+        <div class="container header-inner">
+            <a href="/" class="logo" aria-label="Ir al inicio">
+                <img src="logito loko.ico" alt="Items Minecraft">
+                <span class="logo-text">Items Minecraft</span>
+            </a>
+            <nav aria-label="Navegación principal">
+                <ul>
+                    <li><a href="#hero">Inicio</a></li>
+                    <li><a href="#beneficios">Tienda</a></li>
+                    <li><a href="#contacto">Contacto</a></li>
+                </ul>
+            </nav>
+            <div class="header-actions">
+                <button id="cart-toggle" class="btn-comprar" aria-label="Abrir carrito">Carrito (<span id="cart-count">0</span>)</button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section id="hero" class="hero" aria-labelledby="hero-title">
+            <div class="container">
+                <h1 id="hero-title">Items a la venta</h1>
+                <p class="hero-sub">Todo lo que necesitas para sobrevivir en el mundo cúbico</p>
+                <p><a class="btn-primary" href="#beneficios">Ir a la tienda</a></p>
+
+                <form id="search-form" class="search-bar" role="search" aria-label="Buscar items">
+                    <input id="search-input" class="search-input" type="search" placeholder="Buscar items, ej. espada, pico, pocion..." />
+                    <select id="search-scope" class="search-scope" aria-label="Ámbito de búsqueda">
+                        <option value="all">Todos</option>
+                        <option value="tienda">Tienda</option>
+                        <option value="pociones">Pociones</option>
+                    </select>
+                    <button type="button" id="search-clear" class="btn-comprar">Limpiar</button>
+                </form>
+            </div>
+        </section>
+
+        <section id="beneficios" aria-labelledby="beneficios-title">
+            <div class="container">
+                <h2 id="beneficios-title" class="catalog-title">Tienda de items</h2>
+                <p class="catalog-header">Catálogo de objetos disponibles — haz clic en un bloque para ver opciones.</p>
+            </div>
+            <div class="container grid-cards">
+
+                <article class="beneficio" data-name="espada de diamante" data-price="5000" aria-labelledby="b1-title">
+                    <h3 id="b1-title">Espada de Diamante</h3>
+                    <img src="espadadiamante.ico" width="128" height="128" alt="Espada de diamante">
+                        <p class="precio">5000$</p>
+                        <p class="descripcion" hidden>Espada de diamante clásica, gran daño contra mobs.</p>
+                    <button class="btn-comprar" aria-label="Comprar Espada de Diamante">Comprar</button>
+                </article>
+
+                <article class="beneficio" data-name="pico de netherite" data-price="9000" aria-labelledby="b2-title">
+                    <h3 id="b2-title">Pico de Netherite</h3>
+                    <img src="pikin.ico" width="128" height="128" alt="Pico de netherite">
+                        <p class="precio">9000$</p>
+                        <p class="descripcion" hidden>Pico de netherite, mayor durabilidad y velocidad de minado.</p>
+                    <button class="btn-comprar" aria-label="Comprar Pico de Netherite">Comprar</button>
+                </article>
+
+                <article class="beneficio" data-name="niñito con espada" data-price="15000" aria-labelledby="b3-title">
+                    <h3 id="b3-title">Niñito con Espada</h3>
+                    <img src="ninito.ico" width="128" height="128" alt="Niñito con espada">
+                        <p class="precio">15000$</p>
+                        <p class="descripcion" hidden>Figura decorativa rara con poses animadas.</p>
+                    <button class="btn-comprar" aria-label="Comprar Niñito" disabled>Agotado</button>
+                </article>
+
+                <article class="beneficio" data-name="bedrock" data-price="20000" aria-labelledby="b4-title">
+                    <h3 id="b4-title">Bloque de Bedrock</h3>
+                    <img src="Bedrock.ico" width="128" height="128" alt="Bedrock">
+                        <p class="precio">20000$</p>
+                        <p class="descripcion" hidden>Bloque indestructible. Uso decorativo.</p>
+                    <button class="btn-comprar" aria-label="Comprar Bedrock">Comprar</button>
+                </article>
+            </div>
+        </section>
+
+        <!-- Sección de detalle del item -->
+        <section id="item-detail" aria-labelledby="item-detail-title" style="display:none;">
+            <div class="container">
+                <h2 id="item-detail-title" class="catalog-title">Detalle del Item</h2>
+                <div class="detail-card beneficio">
+                    <h3 class="detail-name">Nombre</h3>
+                    <img class="detail-img" src="favicon.ico" width="128" height="128" alt="Item">
+                    <p class="detail-desc">Descripción</p>
+                    <p>Precio: $<span class="detail-price">0</span></p>
+                    <div class="detail-actions">
+                        <button class="btn-comprar detail-add-cart">Añadir al carrito</button>
+                        <button class="btn-comprar detail-buy-now">Comprar ahora</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Modal de compra (inicialmente oculto) -->
+        <div id="modal" class="modal" role="dialog" aria-modal="true" aria-hidden="true">
+            <div class="modal-overlay" data-action="close"></div>
+            <div class="modal-panel" role="document">
+                <header class="modal-header">
+                    <h3 class="modal-title">Comprar</h3>
+                    <button class="modal-close" aria-label="Cerrar" data-action="close">✕</button>
+                </header>
+                <div class="modal-body">
+                    <p class="modal-item-name">Item</p>
+                    <p>Precio unitario: <span class="modal-price">0</span>$</p>
+
+                    <label for="modal-quantity">Cantidad</label>
+                    <input id="modal-quantity" type="number" min="1" value="1">
+
+                    <label for="modal-payment">Método de pago</label>
+                    <select id="modal-payment">
+                        <option value="paypal">PayPal</option>
+                        <option value="card">Tarjeta</option>
+                        <option value="transfer">Transferencia</option>
+                    </select>
+
+                    <p>Total: <strong class="modal-total">0</strong>$</p>
+                </div>
+                <footer class="modal-footer">
+                    <button class="btn-comprar modal-add-cart">Añadir al carrito</button>
+                    <button class="btn-comprar modal-confirm">Comprar ahora</button>
+                    <button class="btn-comprar modal-cancel" data-action="close">Cancelar</button>
+                </footer>
+            </div>
+        </div>
+
+        <!-- Sección de pociones (plantilla) -->
+        <section id="pociones" aria-labelledby="pociones-title">
+            <div class="container">
+                <h2 id="pociones-title" class="catalog-title">Pociones</h2>
+                <p class="catalog-header"></p>
+            </div>
+            <div class="container grid-cards">
+
+                <!-- Plantilla: copia este bloque y reemplaza la imagen cuando quieras -->
+                <article class="beneficio pocion" data-type="pocion" data-name="pocion-fuego" data-price="500" aria-labelledby="p1-title">
+                    <h3 id="p1-title">Pocion de fuego</h3>
+                    <!-- Imagen placeholder: sustituye por tu fichero (recomendado 128x128) -->
+                    <div class="pocion-img" aria-hidden="true"><img src="pocionfuego.ico" width="128" height="128" alt="Pocion fuego"></div>
+                    <p class="precio">Efecto: Protección contra el fuego</p>
+                    <p class="precio">Duración: 00:30</p>
+                    <p class="precio">Precio: 500$</p>
+                    <button class="btn-comprar" aria-label="Comprar Pocion">Comprar</button>    
+                </article>
+                <article class="beneficio pocion" data-type="pocion" data-name="pocion-curacion" data-price="500" aria-labelledby="p1-title">
+                    <h3 id="p1-title">Pocion de curacion instantanea</h3>
+                    <!-- Imagen placeholder: sustituye por tu fichero (recomendado 128x128) -->
+                    <div class="pocion-img" aria-hidden="true"><img src="pocioncuracion.ico" width="128" height="128" alt="Pocion curacion"></div>
+                    <p class="precio">Efecto: Curación instantánea</p>
+                    <p class="precio">Duración: 00:30</p>
+                    <p class="precio">Precio: 500$</p>
+                    <button class="btn-comprar" aria-label="Comprar Pocion">Comprar</button>
+                </article>
+                <article class="beneficio pocion" data-type="pocion" data-name="pocion-fuerza" data-price="500" aria-labelledby="p1-title">
+                    <h3 id="p1-title">Pocion de fuerza</h3>
+                    <!-- Imagen placeholder: sustituye por tu fichero (recomendado 128x128) -->
+                    <div class="pocion-img" aria-hidden="true"><img src="pocionfuerza.ico" width="128" height="128" alt="Pocion fuerza"></div>
+                    <p class="precio">Efecto: Aumento de fuerza</p>
+                    <p class="precio">Duración: 00:30</p>
+                    <p class="precio">Precio: 500$</p>
+                    <button class="btn-comprar" aria-label="Comprar Pocion">Comprar</button>
+                </article>
+
+            </div>
+        </section>
+
+        <!-- Sección de Subastas -->
+        <section id="subastas" aria-labelledby="subastas-title">
+            <div class="container">
+                <h2 id="subastas-title" class="catalog-title">Subastas</h2>
+                <p class="catalog-header">Sube tu item y permite que otros pujen. Las subastas se guardan en tu navegador (local).</p>
+            </div>
+
+            <div class="container auction-layout">
+                <aside class="auction-form">
+                    <h3 class="small-title">Publicar subasta</h3>
+                    <label>Nombre del item</label>
+                    <input id="auction-title" type="text" placeholder="Ej: Hacha encantada" />
+
+                    <label>Descripción</label>
+                    <textarea id="auction-desc" rows="3" placeholder="Añade detalles..."></textarea>
+
+                    <label>Imagen (opcional)</label>
+                    <input id="auction-image" type="file" accept="image/*">
+
+                    <label>Precio inicial ($)</label>
+                    <input id="auction-start" type="number" min="1" value="100">
+
+                    <label>Duración (minutos)</label>
+                    <input id="auction-duration" type="number" min="1" value="60">
+
+                    <button id="auction-create" class="btn-comprar">Crear subasta</button>
+                </aside>
+
+                <section class="auction-list" aria-live="polite" aria-label="Listado de subastas">
+                    <!-- Subastas dinámicas aquí -->
+                    <div id="auctions-container" class="grid-cards"></div>
+                </section>
+            </div>
+        </section>
+    </main>
+
+    <footer id="contacto" aria-labelledby="contacto-title">
+        <div class="container">
+            <h2 id="contacto-title">Contacto</h2>
+            <address>
+                <p>Empresa LOKILLAS S.A.</p>
+                <p>Teléfono: <a href="tel:+34123456789">+34 123 456 789</a></p>
+                <p>Email: <a href="mailto:info@empresa.com">info@empresa.com</a></p>
+            </address>
+            <p>&copy; 2026 Empresa S.A. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script src="js/footer.js"></script>
+    <script src="js/app.js"></script>
+</body>
+
+</html>

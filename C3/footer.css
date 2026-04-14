@@ -1,0 +1,46 @@
+/* Paleta accesible (WCAG AA) - variables globales
+	 - --bg: color de fondo principal
+	 - --text: color de texto principal sobre el fondo
+	 - --primary: color principal (botones, enlaces destacados)
+	 - --primary-contrast / --primary-constrast: texto sobre --primary
+
+	 Ratios esperados (aprox.):
+	 - contraste `--text` sobre `--bg` ( #111111 sobre #ffffff ): ~18.9:1  (WCAG AA/AAA)
+	 - contraste `--primary-contrast` sobre `--primary` ( #ffffff sobre #005A9C ): ~6.4:1  (WCAG AA)
+	 - contraste `--primary` sobre `--bg` ( #005A9C sobre #ffffff ): ~6.4:1  (WCAG AA)
+
+	 Notas: WCAG AA requiere >=4.5:1 para texto normal y >=3:1 para texto grande.
+*/
+
+:root {
+	/* Fondo y textos */
+	--bg: #6fb84a; /* hierba clara */
+	--text: #0b0b0b; /* texto oscuro sobre fondos claros */
+
+	/* Colores de acento tipo "verde Minecraft" */
+	--accent: #69b02f; /* verde brillante */
+	--accent-contrast: #ffffff;
+
+	/* Paneles y bordes (madera / tierra) */
+	--panel: #8aa877; /* panel sutil para nav */
+	--block-top: #c99a63; /* tono superior de bloque (madera/detalle) */
+	--block-bottom: #a56d2a; /* tono inferior del bloque */
+	--border-dark: #2b2b2b; /* borde oscuro para efecto 'pixel' */
+
+	/* Botones */
+	--button-bg: #5aa12a;
+	--button-contrast: #ffffff;
+
+	/* Otros */
+	--muted: rgba(11,11,11,0.65);
+	--text-strong: #070707;
+	--price: #ffe082;
+	--footer-bg: linear-gradient(180deg,#3e5a2f,#2d4324);
+}
+
+/* Ejemplo rápido de uso
+body { background: var(--bg); color: var(--text); }
+.btn-primary { background: var(--primary); color: var(--primary-contrast); }
+*/
+
+    

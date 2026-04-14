@@ -1,0 +1,7 @@
+/* Archivo puente `style.css` — carga los estilos principales
+   Muchas plantillas y enlaces usan `style.css`; dejamos este archivo
+   para importar `styles.css` (ya contiene las variables accesibles).
+*/
+@import url("styles.css");
+
+/* Aquí puedes añadir overrides específicos para `style.css` si se necesitan. */
